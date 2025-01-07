@@ -18,15 +18,12 @@ public class CurrenciesApplication {
 	}
 
 	@GetMapping("/exchangerates_data/latest")
-	public Object hello(@RequestParam(value = "symbols", defaultValue = "USD") String symbols,
+	public Object getCurrency(@RequestParam(value = "symbols", defaultValue = "USD") String symbols,
 						@RequestParam(value = "base", defaultValue = "USD") String base,
 						@RequestHeader("apikey") String apikey) {
 		if (!apikey.equals("Zw6i9UPopxHUGV8yXMdH8s1dKz4Xj5qi"))
 			return new ResponseEntity("Apikey is wrong", HttpStatus.NOT_FOUND);
 
-		System.out.println("symbols - " + symbols);
-		System.out.println("base - " + base);
-//		return String.format("Hello %s!", base);
-		return ResponseEntity.ok(DataStorage.usd);
+		return ResponseEntity.ok(DataStorage.getCurrency(base, symbols));
 	}
 }
